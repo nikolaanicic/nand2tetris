@@ -9,3 +9,7 @@ Nand2Tetris is a project from the nand2tetris course. nand2tetris course takes y
 # Project 2
 
 **Project 2** is concerned with implementing the elementary pieces of an `ALU` and the `ALU` itself. To complete this project you have to implement the following chips: `half adder`, `full adder`, `incrementer`, `16 bit adder`.
+
+# Project 3
+
+**Project 3** is concerned with implementing the `RAM`, `Register` and `Counter`. All of the volatile memory components are based on a `D Flip-Flop`.
