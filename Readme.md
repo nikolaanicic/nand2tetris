@@ -13,3 +13,11 @@ Nand2Tetris is a project from the nand2tetris course. nand2tetris course takes y
 # Project 3
 
 **Project 3** is concerned with implementing the `RAM`, `Register` and `Counter`. All of the volatile memory components are based on a `D Flip-Flop`.
+
+# Project 4
+
+**Project 4** is concerned with implementing two programs in the `Hack` assembly language. First program is a simple multiplication and the other filling the screen with either black or white color.
+
+# Project 5
+
+**Project 5** is concerned with implementing the `CPU`, `Memory` and then connecting those parts together with `ROM` into the Hack computer.
