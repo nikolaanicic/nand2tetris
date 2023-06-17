@@ -39,5 +39,79 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here:
+    // Put your code here
+
+    Not(in=instruction[15],out=Ainst);
+    Not(in=Ainst,out=Cinst);
+
+    And(a=Cinst,b=instruction[5],out=ALUtoA);
+    And(a=Cinst,b=instruction[4],out=selD);
+    And(a=Cinst,b=instruction[3],out=writeM);
+
+    Or(a=Ainst,b=ALUtoA,out=selA); // load the alu result to A reg or execute the A-instruction type
+
+    Mux16(a=instruction,b=ALUout,sel=ALUtoA,out=AregIn); // a register mux
+    ARegister(in=AregIn,load=selA,out=AregOut,out[0..14]=addressM); // a register
+
+    Mux16(a=AregOut,b=inM,sel=instruction[12],out=AMout); // alu mux
+    DRegister(in=ALUout,load=selD,out=Dout); // d register
+    
+    ALU(    
+        x = Dout, y = AMout,
+        zx=instruction[11], nx=instruction[10], zy=instruction[9],
+        ny=instruction[8],  f=instruction[7],   no=instruction[6],
+        out=ALUout, zr=zeroOut, ng=ngOut, out=outM
+    );
+
+    Not(in=zeroOut,out=notZero);
+    Not(in=ngOut,out=notNg);
+
+    DMux8Way(
+        in=true,
+        a=nojmp,
+        b=jgt,
+        c=jeq,
+        d=jge,
+        e=jlt,
+        f=jne,
+        g=jle,
+        h=jmp,
+        sel=instruction[0..2]
+    );
+
+    And(a=notZero,b=notNg,out=gtz);
+    And(a=notZero,b=ngOut,out=ltz);
+
+    Or(a=zeroOut,b=gtz,out=gteJmpCond);
+    And(a=jge,b=gteJmpCond,out=jgeOut); // jge
+    
+    Or(a=zeroOut,b=ltz,out=gtzJmpCond);
+    And(a=jle,b=gtzJmpCond,out=jleOut); // jle
+
+    And(a=zeroOut,b=jeq,out=jeqOut);    // jeq
+    And(a=notZero,b=jne,out=jneOut);    // jne
+
+    And(a=jgt,b=gtz,out=jgtOut);        // jgt
+    And(a=jlt,b=ltz,out=jltOut);        // jlt
+
+
+
+    Or8Way(
+        in[0] = false,
+        in[1] = jmp,
+        in[2] = jgeOut,
+        in[3] = jleOut,
+        in[4] = jeqOut,
+        in[5] = jneOut,
+        in[6] = jgtOut,
+        in[7] = jltOut,
+        out = lPC
+    );
+
+    And(a=Cinst,b=lPC,out=loadPC);
+    Not(in=loadPC,out=incNoLoad);
+    Or(a=nojmp,b=incNoLoad,out=incPC);
+
+    
+    PC(in=AregOut,reset=reset,inc=incPC,load=loadPC,out[0..14]=pc);       // program counter
 }
