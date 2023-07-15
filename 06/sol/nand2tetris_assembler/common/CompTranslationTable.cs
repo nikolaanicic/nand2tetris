@@ -53,6 +53,7 @@
             table.Add("D|M",   0b010101000000);
 
             _aValueOneSet.Add("M");
+            _aValueOneSet.Add("!M");
             _aValueOneSet.Add("-M");
             _aValueOneSet.Add("M+1");
             _aValueOneSet.Add("M-1");
@@ -61,6 +62,7 @@
             _aValueOneSet.Add("M-D");
             _aValueOneSet.Add("D&M");
             _aValueOneSet.Add("D|M");
+
         }
 
         public ushort GetaValue(string expression)

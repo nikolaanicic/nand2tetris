@@ -1,10 +1,12 @@
 ﻿
-parser.Parser parser = new parser.Parser();
-translator.Translator translator = new translator.Translator();
+
+common.SymbolTable symbolTable = new common.SymbolTable();
+parser.Parser parser = new parser.Parser(symbolTable);
+translator.Translator translator = new translator.Translator(symbolTable);
 
 
-string filename = @"E:\GLUPOSTI\nand2tetris\nand2tetris\projects\06\Pong\Pong.asm";
-string output = @"E:\GLUPOSTI\nand2tetris\nand2tetris\projects\06\Pong\Pong.hack";
+string filename = @"E:\GLUPOSTI\nand2tetris\nand2tetris\projects\06\Pong\PongL.asm";
+string output = @"E:\GLUPOSTI\nand2tetris\nand2tetris\projects\06\Pong\PongL.hack";
 
 
 using(var st = new StreamReader(filename))
@@ -17,6 +19,8 @@ using(var st = new StreamReader(filename))
 
     var translatedInstructions = translator.Translate(tokenizedInstructions);
     Console.WriteLine($"writing to {output}");
+
+
 
     using (var st2 = new StreamWriter(output))
     {

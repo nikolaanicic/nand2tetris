@@ -14,11 +14,9 @@ namespace parser
     {
         private HashSet<char> _newExprTokens;
         private HashSet<char> _cmpExprTokens;
+        private SymbolTable _symbolTable;
 
-
-
-
-        public Parser()
+        public Parser(SymbolTable symbolTable)
         {
             this._newExprTokens = new HashSet<char>();
             this._cmpExprTokens = new HashSet<char>();
@@ -33,6 +31,8 @@ namespace parser
             this._cmpExprTokens.Add('&');
             this._cmpExprTokens.Add('|');
 
+            this._symbolTable = symbolTable;
+
         }
 
         public IList<TokenizedInstruction> ParseFile(StreamReader file)
@@ -41,6 +41,7 @@ namespace parser
             if (file == null) return result;
 
             string? line;
+            ushort lineCounter = 0;
 
             while((line = file.ReadLine()) != null)
             {
@@ -49,7 +50,23 @@ namespace parser
                 if (shouldSkipLine(line)) continue;
                 else if (line.Contains("//")) line = line.Substring(0, line.IndexOf("//")-1);
 
-                result.Add(parseLine(line));
+                var inst = parseLine(line);
+                inst.Line = lineCounter++;
+
+
+                if(inst.Type == InstructionType.A)
+                {
+                    var expression = inst.GetExpressions()[0];
+                    var str = expression.GetExpressionAsString();
+                    if (str[0] == '(')
+                    {
+                        str = new string(str.Where(e => e != '(' && e != ')').ToArray());
+                        _symbolTable.Put(str, inst.Line);
+                    }
+
+                }
+
+                result.Add(inst);
             }
 
             return result;
@@ -96,6 +113,7 @@ namespace parser
 
                 if (valid) exp.Type = ExpressionType.LITERAL;
                 else exp.Type = ExpressionType.LABEL;
+                
             }
 
             result.Add(exp);

@@ -10,6 +10,7 @@
     {
         private List<Expression> expressions;
         public InstructionType Type { get; }
+        public ushort Line { get; set; }
 
         public TokenizedInstruction(InstructionType type, IList<Expression> expressions)
         {
