@@ -2,9 +2,14 @@
 
 namespace parser
 {
+    // the parser should be rewritten with better data models
+    // the parsing should be done line by line
+    // that means the parser should get a file
+    // i want to be able to step through the parsing process
+    // meaning when i click a button i want the parser and the translator to do the following:
+    // the parser should get the next line from a file and parse the expressions contained in that line
+    // and then it should give those expressions to the translator which should assemble the instruction if it can
 
-    // for now this parser works withou symbols
-    // and because of that it doesn't work with the @ character
     public class Parser
     {
         private HashSet<char> _newExprTokens;

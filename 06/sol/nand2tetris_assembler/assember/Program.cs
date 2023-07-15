@@ -1,12 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-
+﻿
 parser.Parser parser = new parser.Parser();
 translator.Translator translator = new translator.Translator();
 
 
-string filename = @"E:\GLUPOSTI\nand2tetris\nand2tetris\projects\06\add\Add.asm";
-string output = @"E:\GLUPOSTI\nand2tetris\nand2tetris\projects\06\add\Add.hack";
+string filename = @"E:\GLUPOSTI\nand2tetris\nand2tetris\projects\06\Pong\Pong.asm";
+string output = @"E:\GLUPOSTI\nand2tetris\nand2tetris\projects\06\Pong\Pong.hack";
 
 
 using(var st = new StreamReader(filename))
@@ -22,14 +20,16 @@ using(var st = new StreamReader(filename))
 
     using (var st2 = new StreamWriter(output))
     {
-        for(int i = 0; i < translatedInstructions.Count - 1; i++)
+        for (int i = 0; i < translatedInstructions.Count - 1; i++)
         {
-            st2.WriteLine(Convert.ToString(translatedInstructions[i],2).PadLeft(16, '0'));
+            st2.WriteLine(Convert.ToString(translatedInstructions[i], 2).PadLeft(16, '0'));
+            Console.WriteLine(Convert.ToString(translatedInstructions[i], 2).PadLeft(16, '0'));
+            cnt++;
         }
-        st2.Write(Convert.ToString(translatedInstructions[translatedInstructions.Count-1],2).PadLeft(16, '0'));
-    }
+        st2.Write(Convert.ToString(translatedInstructions[translatedInstructions.Count - 1], 2).PadLeft(16, '0'));
+        cnt++;
 
-    translatedInstructions.ForEach(i => Console.WriteLine(Convert.ToString(i,2).PadLeft(16,'0')));
+    }
 
     Console.WriteLine($"file contains {cnt} instructions");
 }

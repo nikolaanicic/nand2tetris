@@ -19,10 +19,18 @@ namespace common
             table.Add("M",  0b001000);
             table.Add("D",  0b010000);
             table.Add("DM", 0b011000);
+            table.Add("MD", 0b011000);
             table.Add("A",  0b100000);
             table.Add("AM", 0b101000);
+            table.Add("MA", 0b101000);
             table.Add("AD", 0b110000);
+            table.Add("DA", 0b110000);
             table.Add("ADM",0b111000);
+            table.Add("AMD", 0b111000);
+            table.Add("MDA", 0b111000);
+            table.Add("DAM", 0b111000);
+            table.Add("DMA", 0b111000);
+            table.Add("MAD", 0b111000);
         }
     }
 }
