@@ -21,15 +21,6 @@ This project is from the course [nand2tetris](https://www.nand2tetris.org/). Fro
 	- [CPU](#cpu)
 	- [Computer](#computer)
 4. [Assembler](#assembler)
-5. [Jack Virtual Machine](#jack-virtual-machine)
-	- [The Stack](#the-stack)
-	- [Program Control](#program-control)
-	- [JVM and Hack](#jvm-and-hack)
-6. [Compiler](#compiler)
-	- [High Level Language](#high-level-language)
-	- [Syntax Analysis](#syntax-analysis)
-	- [Code Generation](#code-generation)
-7. [Operating System](#operating-system)
 
 # Hardware
 This section aims at building the bare-bones of the computer. We first make simple logic gates and then leverage them to further make more sophisticated hardware. The logic is written in a custom Hardware Description Language (HDL) specified [here](https://docs.wixstatic.com/ugd/44046b_2cc5aac034ae49f4bf1650a3d31df32c.pdf).
